@@ -1,37 +1,25 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Building2, Globe, Users2, Briefcase, TrendingUp, Newspaper, ShieldCheck, Share2 } from "lucide-react";
+import { Building2, Globe, Users2, Briefcase, TrendingUp, Newspaper, ShieldCheck, Share2, Calendar, Construction, ShieldAlert } from "lucide-react";
+import Areas from "@/components/areas";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { fetchDoc, fetchDomain } from '@/lib/data';
 
-export default function CompanyProfile() {
-  const company = {
-    name: "DeFi Protocol X",
-    logo: "https://images.unsplash.com/photo-1644658722874-00c1baf86d6e?q=80&w=100&h=100&auto=format&fit=crop",
-    description: "Leading DeFi protocol revolutionizing decentralized lending and borrowing",
-    founded: 2021,
-    location: "Singapore",
-    employees: "51-200",
-    website: "https://defiprotocolx.io",
-    funding: "$45M",
-    stage: "Series B",
-    industries: ["DeFi", "Lending", "Blockchain"],
-    investors: [
-      { name: "Crypto Ventures", amount: "$20M", round: "Series B" },
-      { name: "Web3 Capital", amount: "$15M", round: "Series A" },
-      { name: "Blockchain Fund", amount: "$10M", round: "Seed" },
-    ],
-    team: [
-      { name: "Sarah Chen", role: "CEO & Co-founder" },
-      { name: "Alex Kumar", role: "CTO & Co-founder" },
-      { name: "Maria Garcia", role: "Head of Product" },
-    ],
-    news: [
-      { title: "DeFi Protocol X Launches New Lending Platform", date: "2024-03-15" },
-      { title: "Series B Funding Round Closed", date: "2024-02-01" },
-    ]
-  };
+export default async function CompanyProfile({
+  params 
+}: {
+  params: { id: string };
+}) {
+  const company = await fetchDoc(params.id);
+  const { domain }= await fetchDomain(params.id);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-violet-50/50 via-background to-background dark:from-violet-950/20">
@@ -39,45 +27,74 @@ export default function CompanyProfile() {
         {/* Header */}
         <div className="flex flex-col md:flex-row gap-6 items-start mb-8">
           <div className="flex-1">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center">
-                <Building2 className="h-8 w-8 text-white" />
+            <div className="flex items-start gap-4 mb-4">
+              <div className="w-20 h-20 rounded-lg bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center">
+                <Building2 className="h-10 w-10 text-white" />
               </div>
               <div>
+              <div className="flex items-center gap-2">
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
                   {company.name}
                 </h1>
+                </div>
+                <div className="flex items-center gap-1">
+                 <p 
+                 className={`font-medium text-sm ${
+                    domain.status === 'verified' ? 'text-emerald-600' : 'text-muted-foreground'
+                  }`}
+                  >
+                  {params.id}</p>
+                 <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        {domain.status === 'verified' ? (
+                          <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                        ) : (
+                          <ShieldAlert className="h-4 w-4 text-muted-foreground" />
+                        )}
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <>
+                        <p>{domain.status === 'verified' ? "Domain owner verified by Context" : "Domain owner not verified yet"}</p>
+                        <Link href={`https://app.ctx.xyz/domains/${params.id}`} target="_blank" className="text-violet-600 dark:text-violet-400 hover:underline">
+                          View more
+                        </Link>
+                        </>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
                 <p className="text-muted-foreground">{company.description}</p>
               </div>
             </div>
-            <div className="flex flex-wrap gap-4">
-              {company.industries.map((industry) => (
-                <span key={industry} className="px-3 py-1 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-300 text-sm">
-                  {industry}
-                </span>
-              ))}
-            </div>
+            <Areas areas={company.areas} />
           </div>
-          <div className="flex flex-col gap-2 items-end">
+          <div className="flex flex-row gap-2 items-end">
+            <Link href={`https://link3.ctx.xyz/${params.id}`} target="_blank">
+              <div className="flex items-center space-x-2 p-2 cursor-pointer ">
+                  <Share2 className="text-violet-600 dark:text-violet-300 text-lg" />
+                  <div>
+                    <h3 className="text-sm font-medium hover:text-violet-600 text-gray-900 dark:text-gray-100">Share organization</h3>
+                  </div>
+              </div>
+            </Link>
             <div className="flex gap-3">
-              <Button variant="link" className="border-violet-200 dark:border-violet-800">
-                <ShieldCheck className="h-5 w-5 text-green-500 mr-1" /> Verify on Context
-              </Button>
-              <Button className="bg-gradient-to-r from-blue-600 to-violet-600">
+              <Button className="bg-gradient-to-r from-blue-600 to-violet-600 hover:shadow-md hover:shadow-violet-300">
                 Subscribe on Telegram
               </Button>
-            </div>
-            <div className="flex items-center space-x-2 p-2 cursor-pointer ">
-              <Share2 className="text-violet-600 dark:text-violet-300 text-lg" />
-              <div>
-                <h3 className="text-sm font-medium hover:text-violet-600 text-gray-900 dark:text-gray-100">Share the verified Context LinkTree</h3>
-              </div>
             </div>
           </div>
         </div>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">         
+           <Card className="p-4 bg-gradient-to-b from-white to-violet-50/50 dark:from-gray-950 dark:to-violet-950/20">
+            <div className="flex items-center gap-2 mb-2">
+              <Calendar className="h-4 w-4 text-blue-600" />
+              <span className="text-sm text-muted-foreground">Founded</span>
+            </div>
+            <p className="font-semibold">{company.foundation}</p>
+          </Card>
           <Card className="p-4 bg-gradient-to-b from-white to-violet-50/50 dark:from-gray-950 dark:to-violet-950/20">
             <div className="flex items-center gap-2 mb-2">
               <Briefcase className="h-4 w-4 text-blue-600" />
@@ -85,7 +102,7 @@ export default function CompanyProfile() {
             </div>
             <p className="font-semibold">{company.stage}</p>
           </Card>
-          <Card className="p-4 bg-gradient-to-b from-white to-violet-50/50 dark:from-gray-950 dark:to-violet-950/20">
+          <Card className="hidden p-4 bg-gradient-to-b from-white to-violet-50/50 dark:from-gray-950 dark:to-violet-950/20">
             <div className="flex items-center gap-2 mb-2">
               <TrendingUp className="h-4 w-4 text-violet-600" />
               <span className="text-sm text-muted-foreground">Total Funding</span>
@@ -97,7 +114,7 @@ export default function CompanyProfile() {
               <Users2 className="h-4 w-4 text-purple-600" />
               <span className="text-sm text-muted-foreground">Team Size</span>
             </div>
-            <p className="font-semibold">{company.employees}</p>
+            <p className="font-semibold">{company.teamSize}</p>
           </Card>
           <Card className="p-4 bg-gradient-to-b from-white to-violet-50/50 dark:from-gray-950 dark:to-violet-950/20">
             <div className="flex items-center gap-2 mb-2">
@@ -114,12 +131,14 @@ export default function CompanyProfile() {
           <TabsList className="bg-violet-100/50 dark:bg-violet-900/20">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="team">Team</TabsTrigger>
+            <TabsTrigger value="partners">Partners</TabsTrigger>
             <TabsTrigger value="investors">Investors</TabsTrigger>
             <TabsTrigger value="news">
                 Updates
+                { company.updates && company.updates.length > 0 &&
                 <span className="ml-1 h-4 w-4 items-baseline rounded-full bg-violet-400 text-white text-xs font-bold">
-                  2
-                </span>
+                  {company.updates.length}
+                </span>}
             </TabsTrigger>          
           </TabsList>
           
@@ -127,27 +146,135 @@ export default function CompanyProfile() {
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-4">About</h3>
               <p className="text-muted-foreground">
-                {company.description} Founded in {company.founded}, the company has quickly become a leading player in the DeFi space, 
-                offering innovative solutions for decentralized finance.
+                {company.longDescription}
               </p>
+              <div className="flex items-center gap-4 pt-6 mt-6 border-t border-violet-200/50 dark:border-violet-800/50">
+                <div className="flex items-center gap-3">
+                  {company.social && company.social?.x && (
+                    <Link
+                      href={company.social.x}
+                      target="_blank"
+                      className="text-muted-foreground hover:text-blue-400 transition-colors"
+                    >
+                      <Image
+                        src="/img/x.svg"
+                        className="fill-blue-600"
+                        alt="X"
+                        width={18}
+                        height={18} />
+                    </Link>
+                  )}
+                  {company.social && company.social?.telegram && (
+                    <Link
+                      href={company.social.telegram}
+                      target="_blank"
+                      className="text-muted-foreground hover:text-blue-400 transition-colors"
+                    >
+                      <Image
+                        src="/img/tg.svg"
+                        alt="Telegram"
+                        width={22}
+                        height={22} />
+                    </Link>
+                  )}
+                  {company.social && company.social?.linkedin && (
+                    <Link
+                      href={company.social.linkedin}
+                      target="_blank"
+                      className="text-muted-foreground hover:text-blue-400 transition-colors"
+                    >
+                      <Image
+                        src="/img/linkedin.svg"
+                        alt="Telegram"
+                        width={20}
+                        height={20} />
+                    </Link>
+                  )}
+                  <Link href={company.website} target="_blank" className="text-muted-foreground hover:text-blue-400 transition-colors">
+                    {company.website}
+                  </Link>
+                </div>
+              </div>
             </Card>
           </TabsContent>
 
           <TabsContent value="team" className="space-y-4">
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-4">Leadership Team</h3>
-              <div className="grid gap-4">
-                {company.team.map((member) => (
-                  <div key={member.name} className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center">
-                      <Users2 className="h-5 w-5 text-violet-600" />
+              {company.team && company.team.length > 0 ? (
+                <div className="space-y-4">
+                  {company.team.map((member: any) => (
+                    <div className="grid gap-4">
+                      <div key={member.name} className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-full bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center">
+                        <Users2 className="h-5 w-5 text-violet-600" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-1">
+                          <p className="font-medium">{member.name}</p>
+                          { member.domain && 
+                              <TooltipProvider>
+                                <Tooltip>
+                                  <TooltipTrigger>
+                                    <Link href={`https://app.ctx.xyz/domains/${member.domain}`} target="_blank">
+                                      <Image src={'/img/ctx-icon-dark.svg'} alt="ctx" width={20} height={20} />
+                                    </Link>
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    <>
+                                    <p>User with Domain registered at Context</p>
+                                    </>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                          }
+                        </div>
+                        <p className="text-sm text-muted-foreground">{member.role}</p>
+                      </div>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-medium">{member.name}</p>
-                      <p className="text-sm text-muted-foreground">{member.role}</p>
+                  ))}
+                </div>
+              ) : (
+                <div className="relative">
+                  <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(156,81,244,0.05)_50%,transparent_75%)] animate-pulse" />
+                  <div className="relative flex items-start gap-6 p-6 rounded-lg border border-dashed border-violet-200 dark:border-violet-800">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-violet-100 to-blue-100 dark:from-violet-900/30 dark:to-blue-900/30 flex items-center justify-center">
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center">
+                        <span className="text-white font-semibold text-sm">
+                          <Users2 className="h-4 w-4" />
+                        </span>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="space-y-2">
+                        <h4 className="text-lg font-medium">No members found</h4>
+                        <p className="text-sm text-muted-foreground">
+                          {company.name} team is not currently registered
+                        </p>
+                      </div>
                     </div>
                   </div>
-                ))}
+                </div>
+              )}
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="partners" className="space-y-4">
+            <Card className="p-8">
+              <div className="flex flex-col items-center justify-center text-center">
+                <div className="w-16 h-16 mb-6 rounded-full bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center">
+                  <Construction className="h-8 w-8 text-violet-600 dark:text-violet-400" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3 bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
+                  Under Construction
+                </h3>
+                <p className="text-muted-foreground max-w-md mb-6">
+                  We're building something special! Soon you'll be able to track the latest partners working together with {company.name} right here.
+                </p>
+                <div className="inline-flex items-center rounded-full px-4 py-1 bg-violet-100/50 dark:bg-violet-900/20 text-violet-600 dark:text-violet-300 text-sm">
+                  <span>Check back soon</span>
+                </div>
               </div>
             </Card>
           </TabsContent>
@@ -155,25 +282,80 @@ export default function CompanyProfile() {
           <TabsContent value="investors" className="space-y-4">
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-4">Funding History</h3>
-              <div className="space-y-4">
-                {company.investors.map((investment) => (
-                  <div key={investment.round} className="flex items-center justify-between p-4 rounded-lg bg-violet-50 dark:bg-violet-900/20">
-                    <div>
-                      <p className="font-medium">{investment.name}</p>
-                      <p className="text-sm text-muted-foreground">{investment.round}</p>
+              {company.investors && company.investors.length > 0 ? (
+                <div className="space-y-4">
+                  {company.investors.map((investment: any) => (
+                    <div key={investment.round} className="flex items-center justify-between p-4 rounded-lg bg-violet-50 dark:bg-violet-900/20">
+                      <div>
+                        <p className="font-medium">{investment.name}</p>
+                        <p className="text-sm text-muted-foreground">{investment.round}</p>
+                      </div>
+                      <p className="text-blue-600 dark:text-blue-400 font-semibold">{investment.amount}</p>
                     </div>
-                    <p className="text-blue-600 dark:text-blue-400 font-semibold">{investment.amount}</p>
+                  ))}
+                </div>
+              ) : (
+                <div className="relative">
+                  <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(156,81,244,0.05)_50%,transparent_75%)] animate-pulse" />
+                  <div className="relative flex items-start gap-6 p-6 rounded-lg border border-dashed border-violet-200 dark:border-violet-800">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-violet-100 to-blue-100 dark:from-violet-900/30 dark:to-blue-900/30 flex items-center justify-center">
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center">
+                        <span className="text-white font-semibold text-sm">$</span>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="space-y-2">
+                        <h4 className="text-lg font-medium">No investment found</h4>
+                        <p className="text-sm text-muted-foreground">
+                          {company.name} has not yet received external funding or is not currently registered
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
             </Card>
           </TabsContent>
 
           <TabsContent value="news" className="space-y-4">
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-4">Recent News</h3>
+              {company.updates && company.updates.length > 0 ? (
+                <div className="space-y-4">
+                  {company.news && company.news.map((item: any) => (
+                    <div key={item.title} className="flex items-center gap-4">
+                      <Newspaper className="h-5 w-5 text-violet-600" />
+                      <div>
+                        <p className="font-medium">{item.title}</p>
+                        <p className="text-sm text-muted-foreground">{item.date}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="relative">
+                  <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(156,81,244,0.05)_50%,transparent_75%)] animate-pulse" />
+                  <div className="relative flex items-start gap-6 p-6 rounded-lg border border-dashed border-violet-200 dark:border-violet-800">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-violet-100 to-blue-100 dark:from-violet-900/30 dark:to-blue-900/30 flex items-center justify-center">
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center">
+                        <span className="text-white font-semibold text-sm">
+                          <Newspaper className="h-4 w-4" />
+                        </span>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="space-y-2">
+                        <h4 className="text-lg font-medium">No news found</h4>
+                        <p className="text-sm text-muted-foreground">
+                          {company.name} has not shared any updates yet
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
               <div className="space-y-4">
-                {company.news.map((item) => (
+                {company.news && company.news.map((item: any) => (
                   <div key={item.title} className="flex items-center gap-4">
                     <Newspaper className="h-5 w-5 text-violet-600" />
                     <div>
