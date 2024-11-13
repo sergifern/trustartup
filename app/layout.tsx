@@ -4,10 +4,11 @@ import { Bricolage_Grotesque } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { MainNav } from "@/components/main-nav";
 import { Toaster } from "@/components/ui/toaster";
-import { Database, Twitter, Github, Linkedin, Hash } from "lucide-react";
+import { Hash } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { ModeToggle } from "@/components/mode-toggle";
+import { NewTwitterIcon, GithubIcon, Linkedin02Icon } from "hugeicons-react";
 
 const bricolage = Bricolage_Grotesque({ subsets: ["latin"] });
 
@@ -41,31 +42,31 @@ export default function RootLayout({
                   </p>
                   <div className="flex items-center gap-4">
                     <Link 
-                      href="https://twitter.com/web3crunchbase" 
+                      href="https://x.com/ContextProtocol" 
                       target="_blank"
                       className="text-muted-foreground hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
                     >
-                      <Twitter className="h-4 w-4" />
+                      <NewTwitterIcon className="h-4 w-4" />
                       <span className="sr-only">Twitter</span>
                     </Link>
                     <Link 
-                      href="https://github.com/web3crunchbase" 
+                      href="https://github.com/contextprotocol" 
                       target="_blank"
                       className="text-muted-foreground hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
                     >
-                      <Github className="h-4 w-4" />
+                      <GithubIcon className="h-4 w-4" />
                       <span className="sr-only">GitHub</span>
                     </Link>
                     <Link 
-                      href="https://linkedin.com/company/web3crunchbase" 
+                      href="https://linkedin.com/company/context-protocol" 
                       target="_blank"
                       className="text-muted-foreground hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
                     >
-                      <Linkedin className="h-4 w-4" />
+                      <Linkedin02Icon className="h-4 w-4" />
                       <span className="sr-only">LinkedIn</span>
                     </Link>
                     <Link 
-                      href="https://farcaster.xyz/web3crunchbase" 
+                      href="https://warpcast.com/contextprotocol" 
                       target="_blank"
                       className="text-muted-foreground hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
                     >

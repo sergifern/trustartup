@@ -12,6 +12,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { fetchDoc, fetchDomain } from '@/lib/data';
+import { NewTwitterIcon, TelegramIcon, Linkedin02Icon } from "hugeicons-react";
 
 export default async function CompanyProfile({
   params 
@@ -44,7 +45,7 @@ export default async function CompanyProfile({
                   }`}
                   >
                   {params.id}</p>
-                 <TooltipProvider>
+                  <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger>
                         {domain.status === 'verified' ? (
@@ -154,12 +155,9 @@ export default async function CompanyProfile({
                     <Link
                       href={company.social.x}
                       target="_blank"
-                      className="text-muted-foreground hover:text-blue-400 transition-colors"
                     >
-                      <Image
-                        src="/img/x.svg"
-                        className="fill-blue-600"
-                        alt="X"
+                      <NewTwitterIcon
+                        className="text-muted-foreground hover:text-blue-400 transition-colors"
                         width={18}
                         height={18} />
                     </Link>
@@ -168,11 +166,9 @@ export default async function CompanyProfile({
                     <Link
                       href={company.social.telegram}
                       target="_blank"
-                      className="text-muted-foreground hover:text-blue-400 transition-colors"
                     >
-                      <Image
-                        src="/img/tg.svg"
-                        alt="Telegram"
+                      <TelegramIcon
+                        className="text-muted-foreground hover:text-blue-400 transition-colors"
                         width={22}
                         height={22} />
                     </Link>
@@ -181,11 +177,9 @@ export default async function CompanyProfile({
                     <Link
                       href={company.social.linkedin}
                       target="_blank"
-                      className="text-muted-foreground hover:text-blue-400 transition-colors"
                     >
-                      <Image
-                        src="/img/linkedin.svg"
-                        alt="Telegram"
+                      <Linkedin02Icon
+                        className="text-muted-foreground hover:text-blue-400 transition-colors"
                         width={20}
                         height={20} />
                     </Link>

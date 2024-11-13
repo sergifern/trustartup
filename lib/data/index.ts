@@ -14,11 +14,7 @@ type TDomain = {
 
 export async function fetchAllDomains(
   tld: string,
-  //currentPage?: number,
 ) {
-  //noStore();
-  //const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-
   try {
     const res = await fetch(
       `${API_HOST}/v1/public/tld/domains/${tld}`,
@@ -26,6 +22,7 @@ export async function fetchAllDomains(
         headers: {
           'Content-Type': 'application/json',
         },
+        next: { revalidate: 0 } 
       }
     );
     const data = await res.json();
@@ -46,6 +43,7 @@ export async function fetchDoc(path: string) {
         headers: {
           'Content-Type': 'application/json',
         },
+        next: { revalidate: 0 } 
       }
     );
     const data = await res.json();
@@ -66,14 +64,25 @@ export async function fetchStartups() {
           return {
             id: domain.fullDomain,
             ...data,
+            domainInfo: domain,
           };
         } catch (err) {
           console.warn(`Error fetching document for ${domain.name}:`, err);
-          return null; // Return null for domains with errors
+          return null;
         }
       })
     );
-    return startups.filter((startup) => (startup !== null && startup.error == null)); // Filter out null entries
+    const filteredStartups = startups.filter(
+      (startup) => startup !== null && startup.error == null
+    );
+
+    const reorderedStartups = filteredStartups.sort((a, b) => {
+      if (a.name.toLowerCase().includes('context')) return -1;
+      if (b.name.toLowerCase().includes('context')) return 1;
+      return 0;
+    });
+
+    return reorderedStartups;
   } catch (err) {
     console.error('Error in fetchStartups:', err);
     throw new Error(`An error occurred while trying to fetch startup data`);
@@ -82,7 +91,6 @@ export async function fetchStartups() {
 
 
 export async function fetchDomain(name: string) {
-  //noStore();
   try {
     console.log('fetching doc', name);
     const res = await fetch(
@@ -91,6 +99,7 @@ export async function fetchDomain(name: string) {
         headers: {
           'Content-Type': 'application/json',
         },
+        next: { revalidate: 0 } 
       }
     );
     const data = await res.json();

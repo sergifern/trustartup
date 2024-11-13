@@ -1,7 +1,7 @@
 import { fetchAllDomains, fetchStartups } from '@/lib/data';
 import Link from 'next/link';
 import Areas from '@/components/areas';
-import { Building2, ArrowUpRight, Users2, Briefcase } from "lucide-react";
+import { Building2, ArrowUpRight, Users2, Briefcase, ShieldCheck } from "lucide-react";
 
 export default async function CompaniesPage() {
   const data = await fetchStartups();
@@ -30,10 +30,13 @@ export default async function CompaniesPage() {
                       <Building2 className="h-6 w-6 text-white" />
                     </div>
                     <div className="min-h-[5rem] flex flex-col">
-                      <h3 className="font-semibold text-lg flex items-center gap-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                        {company.name}
-                        <ArrowUpRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                      </h3>
+                      <div className="flex flex-row items-center gap-2">
+                        <h3 className="font-semibold text-lg flex items-center gap-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                          {company.name}
+                          {company.domainInfo.status === 'verified' && <ShieldCheck className="h-4 w-4 text-emerald-600" />}   
+                          <ArrowUpRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                        </h3>
+                        </div>
                       <p className="text-sm text-muted-foreground line-clamp-2 mb-2">
                         {company.description}
                       </p>
