@@ -38,7 +38,7 @@ export function MainNav() {
       <div className="container mx-auto flex h-14 items-center">
         <div className="flex flex-1 items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="font-bold ml-4">BlockBase</span>
+            <span className="font-bold ml-4">Trustartup</span>
           </Link>
           
           {/* Desktop Navigation */}
@@ -101,7 +101,7 @@ export function MainNav() {
               <DialogHeader>
                 <DialogTitle>Request access</DialogTitle>
                 <DialogDescription>
-                Submit your organization's details to be featured on BlockBase. To be approved, you must be invited by an organization already part of the platform. Each organization has a limited number of invitations to share. This process ensures a smooth and verifiable onboarding experience while managing high demand.                
+                Submit your organization's details to be featured on Trustartup. To be approved, you must be invited by an organization already part of the platform. Each organization has a limited number of invitations to share. This process ensures a smooth and verifiable onboarding experience while managing high demand.                
                 </DialogDescription>
               </DialogHeader>
               <OrganizationForm />
@@ -143,7 +143,7 @@ export function MainNav() {
                     <DialogHeader>
                       <DialogTitle>Add your organization</DialogTitle>
                       <DialogDescription>
-                        Submit your organization's details to be featured on BlockBase.
+                        Submit your organization's details to be featured on Trustartup.
                       </DialogDescription>
                     </DialogHeader>
                     <OrganizationForm />

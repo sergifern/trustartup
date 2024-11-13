@@ -21,7 +21,7 @@ export default function Home() {
                 </span>
               </h1>
               <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                Track companies, investments, and market trends in the decentralized economy.
+                Track companies, investments, and market trends in the decentralized economy <span className="font-semibold">with confidence</span>
               </p>
             </div>
             <div className="space-x-4">

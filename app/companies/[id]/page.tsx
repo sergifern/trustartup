@@ -71,11 +71,11 @@ export default async function CompanyProfile({
             <Areas areas={company.areas} />
           </div>
           <div className="flex flex-row gap-2 items-end">
-            <Link href={`https://link3.ctx.xyz/${params.id}`} target="_blank">
+            <Link href={`https://trulink.ctx.xyz/${params.id}`} target="_blank">
               <div className="flex items-center space-x-2 p-2 cursor-pointer ">
                   <Share2 className="text-violet-600 dark:text-violet-300 text-lg" />
                   <div>
-                    <h3 className="text-sm font-medium hover:text-violet-600 text-gray-900 dark:text-gray-100">Share organization</h3>
+                    <h3 className="text-sm font-medium hover:text-violet-600 text-gray-900 dark:text-gray-100">Share the Trulink</h3>
                   </div>
               </div>
             </Link>

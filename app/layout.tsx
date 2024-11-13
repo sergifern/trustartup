@@ -13,8 +13,8 @@ import { NewTwitterIcon, GithubIcon, Linkedin02Icon } from "hugeicons-react";
 const bricolage = Bricolage_Grotesque({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "BlockBase - Decentralized Company Intelligence",
-  description: "Discover and track companies, investments, and trends in the Web3 ecosystem",
+  title: "Trustartup | Decentralized Company Intelligence",
+  description: "Discover and track companies, investments, and trends in the Web3 ecosystem with confidence.",
 };
 
 export default function RootLayout({
@@ -38,7 +38,7 @@ export default function RootLayout({
             <div className="container flex flex-col md:flex-row items-start justify-between gap-8 p-8">
                 <div className="flex flex-col gap-4">
                   <p className="text-sm text-muted-foreground">
-                    © {new Date().getFullYear()} Blockbase. All rights reserved.
+                    © {new Date().getFullYear()} Context Protocol. All rights reserved.
                   </p>
                   <div className="flex items-center gap-4">
                     <Link 
