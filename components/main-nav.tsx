@@ -38,7 +38,7 @@ export function MainNav() {
       <div className="container mx-auto flex h-14 items-center">
         <div className="flex flex-1 items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="font-bold ml-4">Trustartup</span>
+            <span className="font-bold ml-4">trustartup</span>
           </Link>
           
           {/* Desktop Navigation */}

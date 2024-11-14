@@ -48,7 +48,7 @@ return(
             marginBottom: 16,
           }}
         >
-          Trustartup
+          trustartup
         </div>
         <div
           style={{

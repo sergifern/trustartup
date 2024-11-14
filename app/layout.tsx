@@ -13,8 +13,15 @@ import { NewTwitterIcon, GithubIcon, Linkedin02Icon } from "hugeicons-react";
 const bricolage = Bricolage_Grotesque({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Trustartup | Decentralized Company Intelligence",
+  title: "trustartup | Decentralized Company Intelligence",
   description: "Discover and track companies, investments, and trends in the Web3 ecosystem with confidence.",
+  openGraph: {
+    title: "trustartup | Decentralized Company Intelligence",
+    description: "Discover and track companies, investments, and trends in the Web3 ecosystem with confidence.",
+    url: "https://trustartup.xyz",
+    type: "website",
+    images: "https://trustartup.xyz/img/og.png"
+  },
 };
 
 export default function RootLayout({
@@ -38,7 +45,7 @@ export default function RootLayout({
             <div className="container flex flex-col md:flex-row items-start justify-between gap-8 p-8">
                 <div className="flex flex-col gap-4">
                   <p className="text-sm text-muted-foreground">
-                    © {new Date().getFullYear()} Context Protocol. All rights reserved.
+                    © {new Date().getFullYear()} trustartup. All rights reserved.
                   </p>
                   <div className="flex items-center gap-4">
                     <Link 
@@ -80,7 +87,7 @@ export default function RootLayout({
                 </div>
                 <div className="flex flex-col gap-4 max-w-2xl">
                   <div className="flex items-center gap-2 text-sm">
-                    <span className="font-semibold text-blue-950 dark:text-slate-200">Powered by</span>
+                    <span className="font-semibold text-blue-950 dark:text-slate-200">Built on</span>
                     <Image 
                       src="/img/logo-dark.svg" 
                       alt="Logo" 
@@ -97,7 +104,7 @@ export default function RootLayout({
                     />
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Built on Context DNS3, this platform leverages decentralized data storage to ensure 
+                    This platform leverages decentralized data storage to ensure 
                     organizational sovereignty. All company and investment data is stored on-chain, 
                     enabling transparent, verifiable, and self-governed information management by the 
                     organizations themselves. This approach ensures data integrity and gives 
