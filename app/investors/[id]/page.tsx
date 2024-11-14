@@ -35,30 +35,30 @@ export default function InvestorProfile() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-violet-50/50 via-background to-background dark:from-violet-950/20">
-      <div className="container px-4 py-8">
+      <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row gap-6 items-start mb-8">
           <div className="flex-1">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center">
+              <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-emerald-600 to-blue-600 flex items-center justify-center">
                 <Briefcase className="h-8 w-8 text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
                   {investor.name}
                 </h1>
                 <p className="text-muted-foreground">{investor.description}</p>
               </div>
             </div>
             <div className="flex flex-wrap gap-4">
-              {investor.focus.map((area) => (
+              {/*investor.focus.map((area) => (
                 <span key={area} className="px-3 py-1 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-300 text-sm">
                   {area}
                 </span>
-              ))}
+              ))*/}
             </div>
           </div>
-          <Button className="bg-gradient-to-r from-blue-600 to-violet-600">
+          <Button className="bg-gradient-to-r from-emerald-600 to-blue-600">
             Connect
           </Button>
         </div>
@@ -67,28 +67,28 @@ export default function InvestorProfile() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <Card className="p-4 bg-gradient-to-b from-white to-violet-50/50 dark:from-gray-950 dark:to-violet-950/20">
             <div className="flex items-center gap-2 mb-2">
-              <TrendingUp className="h-4 w-4 text-blue-600" />
+              <TrendingUp className="h-4 w-4 text-emerald-600" />
               <span className="text-sm text-muted-foreground">AUM</span>
             </div>
             <p className="font-semibold">{investor.aum}</p>
           </Card>
           <Card className="p-4 bg-gradient-to-b from-white to-violet-50/50 dark:from-gray-950 dark:to-violet-950/20">
             <div className="flex items-center gap-2 mb-2">
-              <Building2 className="h-4 w-4 text-violet-600" />
+              <Building2 className="h-4 w-4 text-green-600" />
               <span className="text-sm text-muted-foreground">Investments</span>
             </div>
             <p className="font-semibold">{investor.investments}</p>
           </Card>
           <Card className="p-4 bg-gradient-to-b from-white to-violet-50/50 dark:from-gray-950 dark:to-violet-950/20">
             <div className="flex items-center gap-2 mb-2">
-              <BarChart className="h-4 w-4 text-purple-600" />
+              <BarChart className="h-4 w-4 text-cyan-600" />
               <span className="text-sm text-muted-foreground">Avg Deal Size</span>
             </div>
             <p className="font-semibold">{investor.stats.avgDealSize}</p>
           </Card>
           <Card className="p-4 bg-gradient-to-b from-white to-violet-50/50 dark:from-gray-950 dark:to-violet-950/20">
             <div className="flex items-center gap-2 mb-2">
-              <Globe className="h-4 w-4 text-pink-600" />
+              <Globe className="h-4 w-4 text-blue-600" />
               <span className="text-sm text-muted-foreground">Location</span>
             </div>
             <p className="font-semibold">{investor.location}</p>

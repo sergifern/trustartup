@@ -1,10 +1,11 @@
-import { fetchAllDomains, fetchStartups } from '@/lib/data';
+import { fetchOrganizations } from '@/lib/data';
 import Link from 'next/link';
 import Areas from '@/components/areas';
 import { Building2, ArrowUpRight, Users2, Briefcase, ShieldCheck } from "lucide-react";
 
 export default async function CompaniesPage() {
-  const data = await fetchStartups();
+  const data = await fetchOrganizations('startup');
+  console.log(data);
 
   return (
       <div className="min-h-screen bg-gradient-to-b from-violet-50/50 via-background to-background dark:from-violet-950/20">

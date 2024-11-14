@@ -54,9 +54,9 @@ export async function fetchDoc(path: string) {
   }
 }
 
-export async function fetchStartups() {
+export async function fetchOrganizations(type: string) {
   try {
-    const { domains } = await fetchAllDomains('startup');
+    const { domains } = await fetchAllDomains(type);
     const startups = await Promise.all(
       domains.map(async (domain: TDomain) => {
         try {

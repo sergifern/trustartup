@@ -86,14 +86,14 @@ export default function RootLayout({
                   </div>
                 </div>
                 <div className="flex flex-col gap-4 max-w-2xl">
-                  <div className="flex items-center gap-2 text-sm">
+                  <div className="flex items-center gap-1 text-sm">
                     <span className="font-semibold text-blue-950 dark:text-slate-200">Built on</span>
                     <Image 
                       src="/img/logo-dark.svg" 
                       alt="Logo" 
                       width={100} 
                       height={64} 
-                      className="pb-1 dark:hidden"
+                      className="pb-2 dark:hidden"
                     />
                     <Image 
                       src="/img/logo-white.svg" 
